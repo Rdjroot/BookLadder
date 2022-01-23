@@ -1,0 +1,33 @@
+{% extends 'book/basebook.html' %}
+
+{% block con %}
+    <div class="property" id="properties">
+        <div class="container">
+            <div class="tittle-agileinfo">
+                <h3><span>{{  typeTitle }}</span></h3>
+            </div>
+            <div class="agile-team-grids">
+                {% for info in data %}
+                <div class="col-md-4 team-grid">
+                    <div class="team-img">
+                        <img src = "{{ info['imglink'] }}" style="width:280px;height:380px"  class="img-responsive" alt=" ">
+                        <figcaption class="overlay">
+                            <a href="{{ url_for('book.bookInfo',title = info['title']) }}" >详情</a>
+                        </figcaption>
+                    </div>
+                    <div class="prop-info-w3ls">
+                            <p style="font-size: 18px">《{{info['title'] }}》</p>
+                            <p style="text-align: center;font-size: 10px">{{ info['author'] }}</p>
+                        <div class="clearfix"> </div>
+                    </div>
+                    <div class="prop-btm-w3ls">
+                        <h4>豆瓣评分<span><i class="fa fa-long-arrow-right" aria-hidden="true"></i>{{info['score']}}</span></h4>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+{% endblock %}

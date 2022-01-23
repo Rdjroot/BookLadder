@@ -1,0 +1,42 @@
+{% extends "book/baseList.html" %}
+
+{% block con %}
+<div class="outer-container">
+    <div class="container portfolio-page">
+        <div class="row">
+            <div class="col">
+                <ul class="breadcrumbs flex align-items-center">
+                    <!-- 设置返回主页 -->
+                    <li><a href="{{ url_for('home.index') }}">BookLadder</a></li>
+                    <li>书单页面</li>
+                </ul><!-- .breadcrumbs -->
+            </div><!-- .col -->
+        </div><!-- .row -->
+
+        <div class="row">
+            {% for key in dic.keys() %}
+            <div class="col-12 col-md-6 col-lg-3">
+            <div class="portfolio-content">
+                <figure>
+                    <!-- 请求图片 -->
+                    <img src="../../static/bookList/images/Dicinfo/{{ key }}.png"  alt="">
+                </figure>
+                <div class="entry-content flex flex-column align-items-center justify-content-center">
+                    <!-- 书单分类 -->
+                    <h3 ><a href="{{ url_for('book.booklist',coretype = key) }}">{{ dic[key] }}</a></h3>
+                </div><!-- .entry-content -->
+            </div><!-- .portfolio-content -->
+        </div><!-- .col -->
+            {% endfor %}
+        </div><!-- .row -->
+
+        <!--
+        <div class="scroll-down flex flex-column justify-content-center align-items-center d-none d-lg-block">
+            <span class="arrow-down flex justify-content-center align-items-center"><img src="{{ url_for("static",filename='bookList/images/arrow-down.png') }}" alt="arrow"></span>
+            <span class="scroll-text">Scroll Down</span>
+        </div>
+        -->
+
+    </div><!-- .container -->
+</div><!-- .outer-container -->
+{% endblock %}

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Ladder</title>
+    <link rel="shortcut icon" href="../../static/icon/fav.ico" type="image/x-icon"/>
+    <link rel="icon" href="../../static/icon/fav.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="../../static/assetFour/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/assetFour/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="../../static/assetFour/css/templatemo-style.css">
+    <!--
+    
+    -->
+</head>
+<body>
+<!-- Page Loader -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+
+</div>
+{% block banner %}
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('home.index') }}">
+            <i class="fas fa-book mr-2"></i>
+            Book Ladder
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link nav-link-3" href="{{ url_for('home.index') }}">主页</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-2" href="{{ url_for('book.listPage') }}">书单</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-2" href="{{ url_for('book.heart') }}">随心</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-1 active" aria-current="page" href="{{ url_for('book.bookgreat') }}">浩瀚</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-4" href="{{ url_for('page.analyse') }}">书海</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+
+
+
+<div class="container-fluid tm-container-content tm-mt-60">
+    <div class="row mb-4">
+
+        <h2 class="col-6 tm-text-primary">
+            购书平台
+        </h2>
+        <div class="row tm-mb-90 tm-gallery">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <figure class="effect-ming tm-video-item">
+                    <img src="../../static/assetFour/img/other/jd.png" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <h2>京东图书</h2>
+                        <a href="https://book.jd.com/" target="_Blank">View more</a>
+                    </figcaption>
+                </figure>
+                <div class="d-flex justify-content-between tm-text-gray">
+                    <span class="tm-text-gray-light"></span>
+                    <span>京东图书</span>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <figure class="effect-ming tm-video-item">
+                    <img src="../../static/assetFour/img/other/kfz.png" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <h2>孔夫子旧书网</h2>
+                        <a href="https://www.kongfz.com/" target="_Blank">View more</a>
+                    </figcaption>
+                </figure>
+                <div class="d-flex justify-content-between tm-text-gray">
+                    <span class="tm-text-gray-light" ></span>
+                    <span>孔夫子旧书网</span>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <figure class="effect-ming tm-video-item">
+                    <img src="../../static/assetFour/img/other/dd.png" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <h2>当当图书</h2>
+                        <a href="http://book.dangdang.com/" target="_Blank">View more</a>
+                    </figcaption>
+                </figure>
+                <div class="d-flex justify-content-between tm-text-gray">
+                    <span class="tm-text-gray-light" target="_Blank"></span>
+                    <span>当当图书</span>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <figure class="effect-ming tm-video-item">
+                    <img src="../../static/assetFour/img/other/ymx.png" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <h2>亚马逊电子书</h2>
+                        <a href="https://www.amazon.cn/Kindle电子书/b?ie=UTF8&node=116169071" target="_Blank">View more</a>
+                    </figcaption>
+                </figure>
+                <div class="d-flex justify-content-between tm-text-gray">
+                    <span class="tm-text-gray-light" ></span>
+                    <span>亚马逊电子书</span>
+                </div>
+            </div>
+         </div>
+
+        <h2 class="col-6 tm-text-primary">
+            古籍诗词阅览
+        </h2>
+        <div class="row tm-mb-90 tm-gallery">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <figure class="effect-ming tm-video-item">
+                    <img src="../../static/assetFour/img/other/tj.png" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <h2>太极书馆</h2>
+                        <a href="http://www.8bei8.com/book/" target="_Blank">View more</a>
+                    </figcaption>
+                </figure>
+                <div class="d-flex justify-content-between tm-text-gray">
+                    <span class="tm-text-gray-light"></span>
+                    <span>太极书馆</span>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <figure class="effect-ming tm-video-item">
+                    <img src="../../static/assetFour/img/other/sg.png" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <h2>书格古籍</h2>
+                        <a href="https://new.shuge.org/" target="_Blank">View more</a>
+                    </figcaption>
+                </figure>
+                <div class="d-flex justify-content-between tm-text-gray">
+                    <span class="tm-text-gray-light" ></span>
+                    <span>书格古籍</span>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <figure class="effect-ming tm-video-item">
+                    <img src="../../static/assetFour/img/other/dxf.png" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <h2>东西方古籍</h2>
+                        <a href="https://www.allhistory.com/book/home-list" target="_Blank">View more</a>
+                    </figcaption>
+                </figure>
+                <div class="d-flex justify-content-between tm-text-gray">
+                    <span class="tm-text-gray-light" ></span>
+                    <span>东西方古籍</span>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <figure class="effect-ming tm-video-item">
+                    <img src="../../static/assetFour/img/other/hd.png" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <h2>汉典诗词</h2>
+                        <a href="http://sc.zdic.net/" target="_Blank">View more</a>
+                    </figcaption>
+                </figure>
+                <div class="d-flex justify-content-between tm-text-gray">
+                    <span class="tm-text-gray-light" ></span>
+                    <span>汉典诗词</span>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <figure class="effect-ming tm-video-item">
+                    <img src="../../static/assetFour/img/other/wj.png" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <h2>吴江诗词</h2>
+                        <a href="http://www.wjszx.com.cn/" target="_Blank">View more</a>
+                    </figcaption>
+                </figure>
+                <div class="d-flex justify-content-between tm-text-gray">
+                    <span class="tm-text-gray-light"></span>
+                    <span>吴江诗词</span>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="col-6 tm-text-primary">
+            书籍网络资源
+        </h2>
+        <div class="row tm-mb-90 tm-gallery">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <figure class="effect-ming tm-video-item">
+                    <img src="../../static/assetFour/img/other/gp.png" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <h2>图书配套光盘</h2>
+                        <a href="http://discx.yuntu.io/disc/list" target="_Blank">View more</a>
+                    </figcaption>
+                </figure>
+                <div class="d-flex justify-content-between tm-text-gray">
+                    <span class="tm-text-gray-light"></span>
+                    <span>图书配套光盘</span>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <figure class="effect-ming tm-video-item">
+                    <img src="../../static/assetFour/img/other/sztsg.png" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <h2>国家数字图书馆</h2>
+                        <a href="http://www.nlc.cn/" target="_Blank">View more</a>
+                    </figcaption>
+                </figure>
+                <div class="d-flex justify-content-between tm-text-gray">
+                    <span class="tm-text-gray-light" ></span>
+                    <span>国家数字图书馆</span>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <figure class="effect-ming tm-video-item">
+                    <img src="../../static/assetFour/img/other/dzs.png" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <h2>电子书查询</h2>
+                        <a href="https://www.jiumodiary.com/" target="_Blank">View more</a>
+                    </figcaption>
+                </figure>
+                <div class="d-flex justify-content-between tm-text-gray">
+                    <span class="tm-text-gray-light" ></span>
+                    <span>电子书查询</span>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <figure class="effect-ming tm-video-item">
+                    <img src="../../static/assetFour/img/other/ky.png" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <h2>科研学术导航</h2>
+                        <a href="https://site.sciping.com/" target="_Blank">View more</a>
+                    </figcaption>
+                </figure>
+                <div class="d-flex justify-content-between tm-text-gray">
+                    <span class="tm-text-gray-light" ></span>
+                    <span>科研学术导航</span>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="col-6 tm-text-primary">
+            实用工具
+        </h2>
+        <div class="row tm-mb-90 tm-gallery">
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <figure class="effect-ming tm-video-item">
+                    <img src="../../static/assetFour/img/other/gj.png" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <h2>工具网</h2>
+                        <a href="https://67tool.com/" target="_Blank">View more</a>
+                    </figcaption>
+                </figure>
+                <div class="d-flex justify-content-between tm-text-gray">
+                    <span class="tm-text-gray-light"></span>
+                    <span>工具网</span>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <figure class="effect-ming tm-video-item">
+                    <img src="../../static/assetFour/img/other/ls.png" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <h2>全历史</h2>
+                        <a href="https://www.allhistory.com/map" target="_Blank">View more</a>
+                    </figcaption>
+                </figure>
+                <div class="d-flex justify-content-between tm-text-gray">
+                    <span class="tm-text-gray-light" ></span>
+                    <span>全历史</span>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <figure class="effect-ming tm-video-item">
+                    <img src="../../static/assetFour/img/other/zy.png" alt="Image" class="img-fluid">
+                    <figcaption class="d-flex align-items-center justify-content-center">
+                        <h2>免费资源导航</h2>
+                        <a href="http://www.pickfree.cn/" target="_Blank">View more</a>
+                    </figcaption>
+                </figure>
+                <div class="d-flex justify-content-between tm-text-gray">
+                    <span class="tm-text-gray-light"></span>
+                    <span>免费资源的导航</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div> <!-- container-fluid, tm-container-content -->
+
+<footer class="tm-bg-gray pt-5 pb-3 tm-text-gray tm-footer">
+    <div class="container-fluid tm-container-small">
+        <div class="row">
+            <div class="col-lg-8 col-md-7 col-12 px-5 mb-3">
+                Copyright &copy; 2021.BookLadder All rights reserved.
+            </div>
+            <div class="col-lg-4 col-md-5 col-12 px-5 text-right">
+                Designed by 聂琳予</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="../../static/assetFour/js/plugins.js"></script>
+<script>
+    $(window).on("load", function() {
+        $('body').addClass('loaded');
+    });
+</script>
+</body>
+</html>

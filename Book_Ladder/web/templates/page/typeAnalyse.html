@@ -1,0 +1,90 @@
+{% extends "page/pageBase.html" %}
+{% block title %}
+    <title>BookLadder —— 核心书单数据解析</title>
+    <script type="text/javascript" src="../../static/page/js/echarts.js"></script>
+    <style>
+        body{
+            background-color:	#00EE76;
+        }
+        .page2{
+            width: 920px;
+            height:500px;
+            margin-top: 40px;
+            position: absolute;
+            left:23%;
+        }
+    </style>
+{% endblock %}
+
+{% block con %}
+    <div class="page2" style="width: 700px;height:500px;"></div>
+    <script>
+        var myChart2 = echarts.init(document.querySelector
+        (".page2"));
+        var databooks = {{ countDic|tojson }}
+        var datascore = {{ scoreDic|tojson }}
+
+        var option = {
+            title: {
+                text: '核心书单内容解析',
+                textStyle:{
+                    fontSize:30,
+                    color:'#2222DD',
+                    left:'center'
+                },
+                subtext: '书籍数量与平均分',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            legend: {
+                top: 'bottom'
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: {show: true},
+                    dataView: {show: true, readOnly: false},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            series: [
+                {
+                    name: '类别——数量',
+                    type: 'pie',
+                    radius: [20, 140],
+                    center: ['25%', '50%'],
+                    roseType: 'radius',
+                    itemStyle: {
+                        borderRadius: 5
+                    },
+                    label: {
+                        show: false
+                    },
+
+                    data: databooks
+                },
+                {
+                    name: '类别——平均分',
+                    type: 'pie',
+                    radius: [20, 140],
+                    center: ['75%', '50%'],
+                    roseType: 'area',
+                    itemStyle: {
+                        borderRadius: 5
+                    },
+                    label: {
+                        show: false
+                    },
+
+                    data: datascore
+                }
+            ]
+        };
+
+        myChart2.setOption(option);
+    </script>
+{% endblock %}

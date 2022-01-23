@@ -1,0 +1,53 @@
+{% extends "book/baseList.html" %}
+
+{% block con %}
+    <div class = "container portfolio-page">
+        <div class="row">
+            <div class="col">
+                <ul class="breadcrumbs flex align-items-center">
+                    <!-- 设置返回主页 -->
+                    <li><a href={{ url_for('book.listPage') }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分类书单</a></li>
+                    <li>{{ typeTitle }}</li>
+                </ul><!-- .breadcrumbs -->
+            </div><!-- .col -->
+        </div><!-- .row -->
+    </div>
+    <div class="outer-container blog-page">
+        <div class="container-fluid">
+            <div class="row">
+
+                {% for dt in data %}
+                <div class="col-12 col-xl-6 no-padding">
+                    <div class="blog-content flex">
+                        <figure>
+                            <!-- 封面 -->
+                            <a href="{{ url_for('book.bookInfo',title = dt['title']) }}"><img src="{{ dt['imglink'] }}" alt=""></a>
+                        </figure>
+
+                        <div class="entry-content flex flex-column justify-content-between align-items-start">
+                            <header>
+                                <h3>
+                                    <!-- 放置书名，链接详情页 -->
+                                    <a href="{{ url_for('book.bookInfo',title = dt['title']) }}">{{ dt['title'] }}</a>
+                                </h3>
+                                <!-- 放置作者 -->
+                                <div class="posted-by">{{ dt['author'] }}</div>
+                            </header>
+
+                            <footer class="flex flex-wrap align-items-center">
+                                <!-- isbn -->
+                                <div class="posted-on">{{ dt['isbn'] }}</div>
+
+                                <ul class="flex flex-wrap align-items-center">
+                                    <li><a href="https://search.douban.com/book/subject_search?search_text={{ dt['isbn'] }}" target="_Blank">豆瓣</a>评分：</li>
+                                    <li>{{ dt['score'] }}</li>
+                                </ul>
+                            </footer>
+                        </div><!-- .entry-content -->
+                    </div><!-- .blog-content -->
+                </div><!-- .col -->
+                {% endfor %}
+            </div><!-- .row -->
+        </div><!-- .container-fluid -->
+    </div><!-- .outer-container -->
+{% endblock %}

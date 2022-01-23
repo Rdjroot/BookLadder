@@ -1,0 +1,10 @@
+五星级推理小说：
+https://www.douban.com/doulist/178565/
+#可以，跟上面的第一页链接一页，最后一个的start=100
+https://www.douban.com/doulist/178565/?start=0&sort=seq&playable=0&sub_type=
+https://www.douban.com/doulist/178565/?start=25&sort=seq&playable=0&sub_type=
+https://www.douban.com/doulist/178565/?start=50&sort=seq&playable=0&sub_type=
+外国文学必读：
+有三页，最后一个是start=50
+https://www.douban.com/doulist/76039/?start=0&sort=time&playable=0&sub_type=
+https://www.douban.com/doulist/76039/?start=25&sort=time&playable=0&sub_type=

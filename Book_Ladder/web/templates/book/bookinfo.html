@@ -1,0 +1,156 @@
+{% extends 'book/baseList.html' %}
+
+{% block link %}
+<link href="../../static/assetTwo/templatemo_style.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block con %}
+{#    <div id="loading">#}
+{#        <div id="loading_bg">#}
+{#            <div class="loader">Loading...</div>#}
+{#        </div>#}
+{#    </div>#}
+
+    <div class = "container portfolio-page">
+        <div class="row">
+            <div class="col">
+                <ul class="breadcrumbs flex align-items-center">
+                    <!-- 设置返回主页 -->
+                    <li style="color: #d58404"><a style="color: #d58404" href={{ url_for('book.listPage') }}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分类书单</a></li>
+                    <li><a style="color:#f9f9f9" href="{{ url_for('book.booklist',coretype = data['coretype']) }}">{{ type }}</a></li>
+                    <li>{{ title }}</li>
+                </ul><!-- .breadcrumbs -->
+            </div><!-- .col -->
+        </div><!-- .row -->
+    </div>
+    <div class="outer-container blog-page">
+        <div id="templatemo_wrapper">
+
+        <div id="templatemo_middle"><span class="bg"></span>
+        <div id="templatemo_content_wrapper">
+            <div id="templatemo_content">
+                <div class="post_section">
+                    <h2 style="text-align: center;font-size: 20px">《{{ title }}》</h2>
+
+                    <div class="post_meta">
+                        <strong>作者:</strong> {{ data['author']}}<br/>
+                        <a><strong>译者:</strong>{{ data['trans'] }}<br/></a>
+                        <strong>出版社:</strong> {{ data['publish'] }}|<strong>出版时间:</strong>{{ data['pubyear'] }}
+                        <strong>ISBN:</strong>{{ data['isbn'] }}<br/>
+                        <strong>评分:</strong>{{ data['score'] }}|<strong>评价人数:</strong>{{ data['commnum'] }}人|<strong>好评率:</strong>{{ data['sumper'] }}%<br/>
+
+    {#                    <strong>核心书单</strong><a href="#">Web Design</a>#}
+                    </div>
+
+    {#                放封面图#}
+                   <img class="post_img" src = "{{ data['imglink'] }}" style="width:140px;height:190px" />
+                    <div class="right">
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;{{data['intro']}}</p>
+                  </div>
+
+                  <div class="cleaner_h20"></div>
+
+              </div>
+
+                <div class="comment_tab">推荐与评论</div>
+
+          <div id="comment_section">
+                    <ol class="comments first_level">
+                        {% if data['comment1'] != null %}
+                            <li>
+                                <div class="comment_box commentbox1">
+                                    <div class="comment_text">
+                                        <div class="comment_author">有用数:<span class="date">{{ data['useful1'] }}</span></div>
+                                        <p>{{  data['comment1']}}</p>
+                                    </div>
+                                    <div class="cleaner"></div>
+                                </div>
+                            </li>
+                        {% endif %}
+                        {% if data['comment2'] != null %}
+                            <li>
+                                <div class="comment_box commentbox1">
+                                    <div class="comment_text">
+                                        <div class="comment_author">有用数:<span class="date">{{ data['useful2'] }}</span></div>
+                                        <p>{{  data['comment2']}}</p>
+                                    </div>
+                                    <div class="cleaner"></div>
+                                </div>
+                            </li>
+                        {% endif %}
+                        {% if data['comment3'] != null %}
+                            <li>
+                                <div class="comment_box commentbox1">
+                                    <div class="comment_text">
+                                        <div class="comment_author">有用数:<span class="date">{{ data['useful3'] }}</span></div>
+                                        <p>{{  data['comment3']}}</p>
+                                    </div>
+                                    <div class="cleaner"></div>
+                                </div>
+                            </li>
+                        {% endif %}
+                    </ol>
+          </div>
+            </div>
+        </div>
+
+        <div id="templatemo_sidebar">
+
+            <div class="one_col">
+                <ul class="ads_125">
+                    <li><img class="post_img" src="../../static/icon/{{ id_num }}.png"  style="width: 400px;height: 300px"/>
+                    </li>
+                </ul>
+                <div class="cleaner"></div>
+            </div>
+
+            <div class="two_col float_l">
+                <h5>标签</h5>
+                <ul class="sidebar_menu">
+                    {% for tag in data['tags'] %}
+                    <li><a href="https://book.douban.com/tag/{{ tag }}" target="_blank">{{ tag }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="cleaner"></div>
+            <div class="two_col float_l">
+                <h5>实时价格</h5>
+                <div class="recent_comment_box">
+                    <a href="https://search.jd.com/Search?keyword={{ data['isbn'] }}&psort=2&click=0" target="_Blank">京东图书</a>
+                    <p>{{ price['jd'] }}，详情请点击链接</p>
+                </div>
+                <div class="recent_comment_box">
+                    <a href="http://search.kongfz.com/product_result/?key={{ data['isbn'] }}&order=100&perfect=1" target="_Blank">孔夫子旧书</a>
+                    <p>暂无数据，详情请点击链接</p>
+                </div>
+                <div class="recent_comment_box">
+                    <a href="http://search.dangdang.com/?key={{ data['isbn'] }}&act=input&sort_type=sort_xlowprice_asc#J_tab" target="_Blank">当当图书</a>
+                    <p>{{ price['dd'] }}，详情请点击链接</p>
+                </div>
+                <div class="recent_comment_box">
+                    <a href="https://www.amazon.cn/s?k={{ data['isbn'] }}" target="_Blank">亚马逊电子书</a>
+                    <p>暂无数据，详情请点击链接</p>
+                </div>
+            </div>
+
+
+        </div>
+
+            <div class="cleaner"></div>
+
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{#{% block script %}#}
+{#<script>#}
+{#    document.onreadystatechange=function () { if (document.readyState=="complete"){ loadingFade(); } }#}
+{#    function loadingFade() { var opacity=1;#}
+{#    //var loadingPage=document.getElementById('loading');#}
+{#     var loadingBackground=document.getElementById('loading_bg'); var time=setInterval(function () { if (opacity<=0){ clearInterval(time);#}
+{#     //loadingPage.remove();#}
+{#     $('#loading').remove(); } loadingBackground.style.opacity=opacity; opacity-=0.4; },100); }#}
+{##}
+{#</script>#}
+{#{% endblock %}#}

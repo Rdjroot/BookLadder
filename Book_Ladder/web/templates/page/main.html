@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../static/page/css/index.css" />
+    <link rel="shortcut icon" href="../../static/icon/fav.ico" type="image/x-icon"/>
+    <link rel="icon" href="../../static/icon/fav.ico" type="image/x-icon"/>
+    <script type="text/javascript" src="../../static/page/js/echarts.js"></script>
+    <script src="../../static/page/js/flexible.js"></script>
+    <script src="../../static/page/js/jquery.js"></script>
+        <title>BookLadder</title>
+
+</head>
+<body>
+<header>
+    <h1 style="color: #EE6911"> BookLadder —— 核心书单详解</h1>
+    <div id="nav">
+        <ul>
+            <li><a href="{{ url_for('home.index') }}" title="">主页</a></li>
+            <li><a href="{{ url_for('book.listPage') }}" title="">书单</a></li>
+            <li><a href="{{ url_for('book.heart') }}" title="">随心</a></li>
+            <li><a href="{{ url_for('book.bookgreat') }}" title="">浩瀚</a></li>
+            <li><a href="{{ url_for('page.analyse') }}" title="">书海</a></li>
+        </ul>
+    </div>
+</header>
+
+<section class="mainbox">
+    <!--左-->
+    <div class="column">
+        <div class="panel bar">
+            <div class="page1" style="width: 380px;height:320px;"></div>
+            <div class="panel-footer"></div>
+        </div>
+        <div class="panel pie">
+            <div class="page2" style="width: 380px;height:320px;"></div>
+            <div class="panel-footer"></div>
+        </div>
+    </div>
+    <!--中-->
+    <div class="column">
+        <div class="no">
+            <div class="no-hd">
+                <ul>
+                    <li>276</li>
+                    <li>28</li>
+                </ul>
+            </div>
+            <div class="no-bd">
+                <ul>
+                    <li>核心书籍数量</li>
+                    <li>核心书单种类</li>
+                </ul>
+            </div>
+        </div>
+        <div class="pageCenter">
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="panel line1">
+            <div class="page3" style="width: 370px;height:310px;"></div>
+            <div class="panel-footer"></div>
+        </div>
+        <div class="panel bar1">
+            <div class="page4" style="width: 380px;height:310px;"></div>
+{#            <div class="panel-footer"></div>#}
+        </div>
+    </div>
+</section>
+
+
+    {#左一图#}
+    <script>
+    var myChart = echarts.init(document.querySelector
+    (".page1"));
+    //指定配置项和数据
+    dataAxis = {{ data[0] }};       //评分
+    var data = {{ data[1] }};       //是数量
+    var yMax = [];
+    var dataShadow = [];
+
+    for (var i = 0; i < data.length; i++) {
+        dataShadow.push(yMax);
+    }
+    var option = {
+        title: {
+            text: '核心书籍评分分布',
+            textStyle:{color : '#778CDD'},
+            link:'./score',
+            target : 'self',
+            subtext: 'The distribution of core book ratings',
+            subtextStyle:{color:'#aaa'}
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+            }
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                mark: {show: true},
+                {#dataView: {show: true, readOnly: false},#}
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        xAxis: {
+            data: dataAxis,
+            axisLabel: {
+                interval:0,
+                width:10,
+                overflow:'break',
+                inside: true,
+                textStyle: {
+                    color: '#111111'
+                }
+            },
+            axisTick: {
+                show: false
+            },
+            axisLine: {
+                show: false
+            },
+            z: 10
+        },
+        yAxis: {
+            axisLine: {
+                show: false
+            },
+            axisTick: {
+                show: false
+            },
+            axisLabel: {
+                textStyle: {
+                    color: '#999'
+                }
+            }
+        },
+        dataZoom: [
+            {
+                type: 'inside'
+            }
+        ],
+        series: [
+            {
+                type: 'bar',
+                name:'数量',
+                showBackground: true,
+                itemStyle: {
+                    color: new echarts.graphic.LinearGradient(
+                        0, 0, 0, 1,
+                        [
+                            {offset: 0, color: '#ff6633'},
+                            {offset: 0.5, color: '#FF5555'},
+                            {offset: 1, color: '#FF3333'}
+                        ]
+                    )
+                },
+                emphasis: {
+                    itemStyle: {
+                        color: new echarts.graphic.LinearGradient(
+                            0, 0, 0, 1,
+                            [
+                                {offset: 0, color: '#A9E085'},
+                                {offset: 0.7, color: '#83D34E'},
+                                {offset: 1, color: '#61B12C'}
+                            ]
+                        )
+                    }
+                },
+                data: data
+            }
+        ]
+    };
+
+    // Enable data zoom when user click bar.
+    var zoomSize = 6;
+    myChart.on('click', function (params) {
+        console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
+        myChart.dispatchAction({
+            type: 'dataZoom',
+            startValue: dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)],
+            endValue: dataAxis[Math.min(params.dataIndex + zoomSize / 2, data.length - 1)]
+        });
+    });
+
+    myChart.setOption(option);
+</script>
+    {#    左二图#}
+    <script>
+        var myChart2 = echarts.init(document.querySelector
+        (".page2"));
+        var databooks = {{ countDic|tojson }}
+        var datascore = {{ scoreDic|tojson }}
+
+        var option = {
+            title: {
+                text: '核心书单内容解析',
+                textStyle:{color : '#778CDD'},
+                link:'./typePre',
+                target : 'self',
+                subtext: '书籍数量与平均分',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: {show: true},
+                    dataView: {show: true, readOnly: false},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            series: [
+                {
+                    name: '类别——数量',
+                    type: 'pie',
+                    radius: [10, 70],
+                    center: ['25%', '50%'],
+                    roseType: 'radius',
+                    itemStyle: {
+                        borderRadius: 5
+                    },
+                    label: {
+                        show: false
+                    },
+                    data: databooks
+                },
+                {
+                    name: '类别——平均分',
+                    type: 'pie',
+                    radius: [10, 70],
+                    center: ['75%', '50%'],
+                    roseType: 'area',
+                    itemStyle: {
+                        borderRadius: 5
+                    },
+                    label: {
+                        show: false
+                    },
+                    data: datascore
+                }
+            ]
+        };
+
+        myChart2.setOption(option);
+    </script>
+    {#旭日图#}
+    <script charset="utf-8">
+    var myChartCenter = echarts.init(document.querySelector
+    (".pageCenter"));
+
+    var colors = ['#FFAE57', '#FF7853', '#EA5151', '#CC3F57', '#9A2555'];
+    var bgColor = '#2E2733';
+
+    var itemStyle = {
+        star5: {
+            color: colors[0]
+        },
+        star4: {
+            color: colors[1]
+        },
+        star3: {
+            color: colors[2]
+        },
+        star2: {
+            color: colors[3]
+        }
+    };
+
+    var data = [{
+        name: '理学',
+        itemStyle: {
+            color: colors[1]
+        },
+        children: {{lit|tojson}}
+    },
+        {
+            name: '非理学',
+            itemStyle: {
+                color: colors[2]
+            },
+            children: {{sci|tojson}}
+        }];
+
+    for (var j = 0; j < data.length; ++j) {
+        var level1 = data[j].children;
+        for (var i = 0; i < level1.length; ++i) {
+            var block = level1[i].children;
+            var bookScore = [];
+            var bookScoreId;
+            for (var star = 0; star < block.length; ++star) {
+                var style = (function (name) {
+                    switch (name) {
+                        case '5☆':
+                            bookScoreId = 0;
+                            return itemStyle.star5;
+                        case '4☆':
+                            bookScoreId = 1;
+                            return itemStyle.star4;
+                        case '3☆':
+                            bookScoreId = 2;
+                            return itemStyle.star3;
+                        case '2☆':
+                            bookScoreId = 3;
+                            return itemStyle.star2;
+                    }
+                })(block[star].name);
+
+                block[star].label = {
+                    color: style.color,
+                    downplay: {
+                        opacity: 0.5
+                    }
+                };
+
+                if (block[star].children) {
+                    style = {
+                        opacity: 1,
+                        color: style.color
+                    };
+                    block[star].children.forEach(function (book) {
+                        book.value = 1;
+                        book.itemStyle = style;
+
+                        book.label = {
+                            color: style.color
+                        };
+
+                        var value = 1;
+                        if (bookScoreId === 0 || bookScoreId === 3) {
+                            value = 5;
+                        }
+
+                        if (bookScore[bookScoreId]) {
+                            bookScore[bookScoreId].value += value;
+                        }
+                        else {
+                            bookScore[bookScoreId] = {
+                                color: colors[bookScoreId],
+                                value: value
+                            };
+                        }
+                    });
+                }
+            }
+
+            level1[i].itemStyle = {
+                color: data[j].itemStyle.color
+            };
+        }
+    }
+
+    var option = {
+        title:{
+            text:"详情",
+            bottom:50,
+            right:5,
+            link:'./RadarPic',
+            target:'self'
+        },
+        backgroundColor: bgColor,
+        color: colors,
+        series: [{
+            type: 'sunburst',
+            center: ['50%', '48%'],
+            data: data,
+            sort: function (a, b) {
+                if (a.depth === 1) {
+                    return b.getValue() - a.getValue();
+                }
+                else {
+                    return a.dataIndex - b.dataIndex;
+                }
+            },
+            label: {
+                rotate: 'radial',
+                color: bgColor
+            },
+            itemStyle: {
+                borderColor: bgColor,
+                borderWidth: 2
+            },
+            levels: [{}, {
+                r0: 0,
+                r: 40,
+                label: {
+                    rotate: 0
+                }
+            }, {
+                r0: 40,
+                r: 105
+            }, {
+                r0: 115,
+                r: 140,
+                itemStyle: {
+                    shadowBlur: 2,
+                    shadowColor: colors[2],
+                    color: 'transparent'
+                },
+                label: {
+                    rotate: 'tangential',
+                    fontSize: 10,
+                    color: colors[0]
+                }
+            }, {
+                r0: 140,
+                r: 145,
+                itemStyle: {
+                    shadowBlur: 80,
+                    shadowColor: colors[0]
+                },
+                label: {
+                    position: 'outside',
+                    textShadowBlur: 5,
+                    textShadowColor: '#333'
+                },
+                downplay: {
+                    label: {
+                        opacity: 0.5
+                    }
+                }
+            }]
+        }]
+    };
+    myChartCenter.setOption(option);
+</script>
+{#右一图#}
+    <script charset="utf-8">
+    var myChart3 = echarts.init(document.querySelector
+    (".page3"));
+    //以下内容分别是：评论人数，好评率，评论人数*好评率，书籍名称，和核心标志
+    var datas =
+        {{ dataGroup|tojson }};
+
+    {#    [#}
+    {#    [172517,  165961,96.2, '1984', 'core'],[156395, 145447, 93.0, '万历十五年', 'core']#}
+    {#];#}
+
+    var option = {
+        title: {
+            text: '核心书籍评分人数和好评人数',
+            textStyle:{color : '#778CDD'},
+            left: 'center',
+            link:'./points',
+            target : 'self',
+            top: 0
+        },
+        tooltip: {
+            // trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+            }
+        },
+        xAxis: [{
+            type: 'value',
+            name:'评论人数'
+        }],
+        yAxis: {
+            name:'好评人数',
+            splitLine: {
+                lineStyle: {
+                    type: 'dashed'
+                }
+            },
+            scale: true
+        },
+
+        {#dataZoom: [#}
+        {#    {#}
+        {#        type: 'slider',#}
+        {#        show: true,#}
+        {#        xAxisIndex: [0],#}
+        {#        start: 1,#}
+        {#        end: 35#}
+        {#    },#}
+        {#    {#}
+        {#        type: 'slider',#}
+        {#        show: true,#}
+        {#        yAxisIndex: [0],#}
+        {#        left: '93%',#}
+        {#        start: 29,#}
+        {#        end: 36#}
+        {#    },#}
+        {#    {#}
+        {#        type: 'inside',#}
+        {#        xAxisIndex: [0],#}
+        {#        start: 1,#}
+        {#        end: 35#}
+        {#    },#}
+        {#    {#}
+        {#        type: 'inside',#}
+        {#        yAxisIndex: [0],#}
+        {#        start: 29,#}
+        {#        end: 36#}
+        {#    }#}
+        {#],#}
+
+        series: [{
+            type: 'scatter',
+            symbolSize : 5,
+            // itemStyle: {
+            //     normal: {
+            //         borderWidth: 0.2,
+            //         borderColor: '#fff'
+            //     }
+            // },
+            data: datas,
+            emphasis:{
+                focus: 'series',
+                //显示书名
+                label: {
+                    show: true,
+                    formatter: function (param) {
+                        return param.data[3];
+                    },
+                    position: 'top'
+                }
+            }
+        }]
+    };
+    myChart3.setOption(option);
+</script>
+{#右二图#}
+<script charset="utf-8">
+    var myChart4 = echarts.init(document.querySelector
+    (".page4"));
+
+    var type = {{ typeInfo|tojson }}
+    var avgCommdata = {{ commInfo }}
+    var avgSupports = {{ suppInfo }}
+    var sumCommRight = {{ sameInfo }}
+
+    var option = {
+        title:{
+            text: '详细',
+            textStyle:{color : '#778CDD'},
+            right: 20,
+            link:'./messbar',
+            target : 'self',
+            top: 0
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['平均评论人数', '支持数',  '评论点赞数'],
+            textStyle:{color : '#778CDD'},
+            left:'20'
+        },
+        toolbox: {
+            show: true,
+            orient:'vertical',
+            feature: {
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        calculable: true,
+        xAxis: [
+            {
+                type: 'category',
+                data: type
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        series: [
+            {
+                name: '平均评论人数',
+                type: 'bar',
+                data: avgCommdata,
+            },
+            {
+                name: '支持数',
+                type: 'bar',
+                data: avgSupports,
+            },
+            {
+                name: '评论点赞数',
+                type: 'bar',
+                data: sumCommRight,
+            }
+
+        ]
+    };
+    myChart4.setOption(option);
+</script>
+</body>
+</html>

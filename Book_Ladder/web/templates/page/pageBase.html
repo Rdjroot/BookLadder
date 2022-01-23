@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../static/icon/fav.ico" type="image/x-icon"/>
+      <link rel="icon" href="../../static/icon/fav.ico" type="image/x-icon"/>
+      <link rel="stylesheet" href="../../static/page/css/index.css" />
+      <script type="text/javascript" src="../../static/page/js/echarts.js"></script>
+      <script src="../../static/page/js/flexible.js"></script>
+      <script src="../../static/page/js/jquery.js"></script>
+      <script src="../../static/page/js/echarts.js"></script>
+      {% block title %}
+    <title>BookLadder</title>
+      {% endblock %}
+  </head>
+  <body>
+
+    <header>
+      <h1 style="color: #EE6911">BookLadder ——核心书单详解</h1>
+      <div id="nav">
+        <ul>
+          <li><a href="{{ url_for('home.index') }}" title="">主页</a></li>
+          <li><a href="{{ url_for('book.listPage') }}" title="">书单</a></li>
+          <li><a href="{{ url_for('book.heart') }}" title="">随心</a></li>
+          <li><a href="{{ url_for('book.bookgreat') }}" title="">浩瀚</a></li>
+          <li><a href="{{ url_for('page.analyse') }}" title="">书海</a></li>
+        </ul>
+      </div>
+    </header>
+
+    {% block con %}
+
+    {% endblock %}
+
+
+
+  </body>
+</html>

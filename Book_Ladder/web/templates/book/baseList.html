@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>BookLadder</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="referrer" content="no-referrer">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../../static/bookList/css/bootstrap.min.css">
+
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="../../static/bookList/css/font-awesome.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../static/bookList/style.css">
+    <!-- 放置图标 -->
+    <link rel="shortcut icon" href="../../static/icon/fav.ico" type="image/x-icon"/>
+    <link rel="icon" href="../../static/icon/fav.ico" type="image/x-icon"/>
+    {% block link %}
+
+    {% endblock %}
+
+</head>
+<body>
+<header class="site-header">
+    <div class="site-branding">
+        <!-- 这里放置图标和返回主页的链接 -->
+        <h1 class="site-title"><a href="{{ url_for('home.index') }}" rel="home"><img src="{{ url_for("static",filename='bookList/images/fav.ico') }}" alt="Logo"></a></h1>
+    </div><!-- .site-branding -->
+
+    <div class="hamburger-menu">
+        <div class="menu-icon">
+            <img src="{{ url_for("static",filename='bookList/images/menu-icon.png') }}"alt="menu icon">
+        </div><!-- .menu-icon -->
+
+        <div class="menu-close-icon">
+            <img src="{{ url_for("static",filename='bookList/images/x.png') }}" alt="menu close icon">
+        </div><!-- .menu-close-icon -->
+    </div><!-- .hamburger-menu -->
+</header><!-- .site-header -->
+
+<nav class="site-navigation flex flex-column justify-content-between">
+    <!-- 设置返回主页 -->
+    <div class="site-branding d-none d-lg-block ">
+        <!-- 设置图标 -->
+        <h1 class="site-title"><a href="{{ url_for('home.index') }}" rel="home"><img src="{{ url_for("static",filename='bookList/images/bookladder.png') }}" alt="Logo"></a></h1>
+    </div><!-- .site-branding -->
+
+    <ul class="main-menu flex flex-column justify-content-center">
+        <!-- 返回页面设置 -->
+        <li><a href="{{ url_for('home.index') }}" class = "special">主页</a></li>
+        <li class="current-menu-item"><a href="{{ url_for('book.listPage') }}" class = "special">书单</a></li>
+        <li><a href="{{ url_for('book.heart') }}" class = "special">随心</a></li>
+        <li><a href="{{ url_for('book.bookgreat') }}" class = "special">浩瀚</a></li>
+        <li><a href="{{ url_for('page.analyse') }}" class = "special">书海</a></li>
+    </ul>
+
+<p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script>Book Ladder All rights reserved <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://github.com/Rdjroot" target="_blank">Rdjroot</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+</p>
+
+
+    <div class="social-profiles">
+        <ul class="flex justify-content-start justify-content-lg-center align-items-center">
+            <!-- 再次设置返回页面 -->
+            <li><a href="{{ url_for('book.listPage') }}"><i class="fa fa-book"></i></a></li>
+            <li><a href="{{ url_for('book.heart') }}"><i class="fa fa-heart"></i></a></li>
+            <li><a href="{{ url_for('book.bookgreat') }}"><i class="fa fa-wrench"></i></a></li>
+            <li><a href="{{ url_for('page.analyse') }}"><i class="fa fa-wpexplorer"></i></a></li>
+        </ul>
+    </div><!-- .social-profiles -->
+</nav><!-- .site-navigation -->
+
+<div class="nav-bar-sep d-lg-none"></div>
+
+{% block con %}
+
+{% endblock %}
+
+
+<!-- 设置静态请求 -->
+
+{% block script %}
+
+{% endblock %}
+
+<script type='text/javascript' src ="{{ url_for("static",filename='bookList/js/jquery.js') }}"></script>
+<script type='text/javascript' src="{{ url_for('static',filename = 'bookList/js/custom.js') }}"></script>
+
+</body>
+</html>

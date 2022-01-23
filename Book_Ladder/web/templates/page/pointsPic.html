@@ -1,0 +1,142 @@
+
+{% extends "page/pageBase.html" %}
+{% block title %}
+    <title>BookLadder —— 核心书籍评分散点图</title>
+    <script type="text/javascript" src="../../static/page/js/echarts.js"></script>
+    <style>
+        body{
+            background-color:#E89B29;
+        }
+        .page3{
+            width: 920px;
+            height:500px;
+            margin-top: 40px;
+            position: absolute;
+            left: 15%;
+        }
+    </style>
+{% endblock %}
+
+{% block con %}
+    <div class="page3" ></div>
+    <script charset="utf-8">
+        var myChart3 = echarts.init(document.querySelector
+        (".page3"));
+        //以下内容分别是：评论人数，好评率，评论人数*好评率，书籍名称，和核心标志
+        var datas =
+            {{ dataGroup|tojson }};
+
+        var option = {
+            title: {
+                text: '核心书籍评分人数和好评人数',
+                left: 'center',
+                top: 0,
+                textStyle: {color: '#141485',
+                    fontSize :30,
+                    fontFamily:'Microsoft YaHei'
+                }
+            },
+            tooltip: {
+                // trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    },
+                formatter: function (param) {
+                    return param.data[3];
+                },
+                borderColor:'#A50606',
+                backgroundColor:'#CCFFFF',
+                textStyle: {
+                    color:'#003333',
+                    fontStyle: 'normal',
+                    fontWeight: 'bold',
+                    fontFamily: 'monospace'
+                }
+            },
+            xAxis: [{
+                type: 'value',
+                name:'评论人数',
+                nameTextStyle:{
+                    color:'#F7F7F7',
+                    fontSize: 20
+                },
+                axisLabel:{
+                    color:'#F7F7F7'
+                }
+            }],
+            yAxis: {
+                name:'好评人数',
+                nameTextStyle:{
+                    color:'#F7F7F7',
+                    fontSize: 20
+                },
+                axisLabel:{
+                    color:'#F7F7F7'
+                },
+                splitLine: {
+                    lineStyle: {
+                        type: 'dashed'
+                    }
+                },
+                scale: true
+            },
+
+            dataZoom: [
+                {
+                    type: 'slider',
+                    show: true,
+                    xAxisIndex: [0],
+                    start: 1,
+                    end: 35
+                },
+                {
+                    type: 'slider',
+                    show: true,
+                    yAxisIndex: [0],
+                    left: '93%',
+                    start: 29,
+                    end: 36
+                },
+                {
+                    type: 'inside',
+                    xAxisIndex: [0],
+                    start: 1,
+                    end: 35
+                },
+                {
+                    type: 'inside',
+                    yAxisIndex: [0],
+                    start: 29,
+                    end: 36
+                }
+            ],
+
+            series: [{
+                type: 'scatter',
+                symbolSize : 5,
+                // itemStyle: {
+                //     normal: {
+                //         borderWidth: 0.2,
+                //         borderColor: '#fff'
+                //     }
+                // },
+                data: datas,
+                emphasis:{
+                    focus: 'series',
+                    //显示书名
+                    label: {
+                        show: true,
+                        formatter: function (param) {
+                            return '好评率:'+param.data[2];
+                        },
+                        fontStyle:'italic',
+                        fontWeight:'bold',
+                        fontSize:'12',
+                        position: 'top'
+                    }
+                }
+            }]
+        };
+        myChart3.setOption(option);
+    </script>
+{% endblock %}
